@@ -7,11 +7,13 @@ SPDX-License-Identifier: CC0-1.0
 
 - Remove the `Merge` implementation for `Option<T>`.
 - Add new merge strategies:
+  - `overwrite`
   - `option::overwrite_none`
   - `option::recurse`
   - `hashmap::overwrite`
   - `hashmap::ignore`
   - `hashmap::recurse`
+  - `hashset::extend`
 
 # v0.1.0 (2020-09-01)
 

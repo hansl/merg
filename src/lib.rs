@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
+// SPDX-FileCopyrightText: 2023 Hans Larsen <hans@larsen.online>
 // SPDX-License-Identifier: Apache-2.0 or MIT
 
 //! Provides [`Merge`][], a trait for objects that can be merged.
@@ -161,6 +162,11 @@ pub trait Merge {
     fn merge(&mut self, other: Self);
 }
 
+/// Always overwrite the left value with the right value.
+pub fn overwrite<T>(left: &mut T, right: T) {
+    *left = right;
+}
+
 /// Merge strategies for `Option`
 pub mod option {
     /// Overwrite `left` with `right` only if `left` is `None`.
@@ -297,5 +303,19 @@ pub mod hashmap {
                 }
             }
         }
+    }
+}
+
+/// Merge strategies for hash sets.
+///
+/// These strategies are only available if the `std` feature is enabled.
+#[cfg(feature = "std")]
+pub mod hashset {
+    use std::collections::HashSet;
+    use std::hash::Hash;
+
+    /// Extend the left hashset with the contents of the right hashset.
+    pub fn extend<K: Eq + Hash>(left: &mut HashSet<K>, right: HashSet<K>) {
+        left.extend(right.into_iter())
     }
 }

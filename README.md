@@ -1,5 +1,6 @@
 <!---
 Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
+Copyright (C) 2023 Hans Larsen <hans@larsen.online>
 SPDX-License-Identifier: CC0-1.0
 -->
 
@@ -78,16 +79,7 @@ This crate supports Rust 1.36.0 or later.
 
 ## Contact
 
-For bug reports, patches, feature requests and other messages, please send a
-mail to [~ireas/public-inbox@lists.sr.ht][] ([archive][]) using the
-`[merge-rs]` prefix in the subject.
-
-You can submit patches using [`git send-email`][], for example:
-```
-git send-email --to=~ireas/public-inbox@lists.sr.ht --subject-prefix="PATCH merge-rs"
-```
-Please prefix the subject with `PATCH merge-rs` so that CI will be
-automatically run.
+This fork can be found at https://github.com/hansl/merge-rs.
 
 ## License
 
