@@ -176,6 +176,13 @@ pub mod option {
         }
     }
 
+    /// Overwrite `left` with `right` if `right` is some.
+    pub fn overwrite_some<T>(left: &mut Option<T>, right: Option<T>) {
+        if right.is_some() {
+            *left = right;
+        }
+    }
+
     /// If both `left` and `right` are `Some`, recursively merge the two.
     /// Otherwise, fall back to `overwrite_none`.
     pub fn recurse<T: crate::Merge>(left: &mut Option<T>, right: Option<T>) {

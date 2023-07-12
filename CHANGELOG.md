@@ -9,6 +9,7 @@ SPDX-License-Identifier: CC0-1.0
 - Add new merge strategies:
   - `overwrite`
   - `option::overwrite_none`
+  - `option::overwrite_some`
   - `option::recurse`
   - `hashmap::overwrite`
   - `hashmap::ignore`

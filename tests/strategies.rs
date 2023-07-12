@@ -64,6 +64,17 @@ mod option {
     }
 
     #[test]
+    fn test_overwrite_some() {
+        #[derive(Debug, Merge, PartialEq)]
+        struct S(#[merge(strategy = merge::option::overwrite_some)] Option<u8>);
+
+        test(S(Some(1)), S(Some(1)), S(None));
+        test(S(Some(2)), S(Some(1)), S(Some(2)));
+        test(S(Some(2)), S(None), S(Some(2)));
+        test(S(None), S(None), S(None));
+    }
+
+    #[test]
     fn test_recursive() {
         #[derive(Debug, Merge, PartialEq)]
         struct N(#[merge(strategy = merge::num::saturating_add)] u8);
