@@ -11,6 +11,7 @@ SPDX-License-Identifier: CC0-1.0
   - `option::overwrite_none`
   - `option::overwrite_some`
   - `option::recurse`
+  - `num::overwrite_nonzero`
   - `hashmap::overwrite`
   - `hashmap::ignore`
   - `hashmap::recurse`

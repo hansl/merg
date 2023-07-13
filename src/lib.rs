@@ -229,6 +229,12 @@ pub mod num {
             *left = right;
         }
     }
+    /// Overwrite left with right if the value of right is non-zero.
+    pub fn overwrite_nonzero<T: num_traits::Zero>(left: &mut T, right: T) {
+        if !right.is_zero() {
+            *left = right;
+        }
+    }
 }
 
 /// Merge strategies for types that form a total order.
