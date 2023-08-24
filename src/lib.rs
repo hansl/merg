@@ -167,6 +167,13 @@ pub fn overwrite<T>(left: &mut T, right: T) {
     *left = right;
 }
 
+/// Always overwrite the left value with the right value.
+pub fn overwrite_if_default<T: Default + PartialEq>(left: &mut T, right: T) {
+    if left == &T::default() {
+        *left = right;
+    }
+}
+
 /// Merge strategies for `Option`
 pub mod option {
     /// Overwrite `left` with `right` only if `left` is `None`.

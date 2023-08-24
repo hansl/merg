@@ -8,6 +8,7 @@ SPDX-License-Identifier: CC0-1.0
 - Remove the `Merge` implementation for `Option<T>`.
 - Add new merge strategies:
   - `overwrite`
+  - `overwrite_if_default`
   - `option::overwrite_none`
   - `option::overwrite_some`
   - `option::recurse`
