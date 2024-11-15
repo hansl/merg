@@ -4,7 +4,7 @@ error[E0277]: the trait bound `std::option::Option<u8>: merg::Merge` is not sati
 8 |     field1: Option<u8>,
   |     ^^^^^^ the trait `merg::Merge` is not implemented for `std::option::Option<u8>`
   |
-  = note: required by `merg::merg::merge`
+  = note: required by `merg::Merge::merge`
 
 error[E0277]: the trait bound `u8: merg::Merge` is not satisfied
  --> $DIR/derive-u8.rs:9:5
@@ -12,4 +12,4 @@ error[E0277]: the trait bound `u8: merg::Merge` is not satisfied
 9 |     field2: u8,
   |     ^^^^^^ the trait `merg::Merge` is not implemented for `u8`
   |
-  = note: required by `merg::merg::merge`
+  = note: required by `merg::Merge::merge`

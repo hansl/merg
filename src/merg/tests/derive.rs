@@ -558,6 +558,6 @@ fn test_default_strategy() {
         Option<usize>,
         Option<usize>,
         #[merge(strategy = merg::num::saturating_add)] u8,
-        #[merge(strategy = merg::merge)] N,
+        #[merge(strategy = merg::Merge::merge)] N,
     );
 }

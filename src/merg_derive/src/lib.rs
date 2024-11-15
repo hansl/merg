@@ -90,7 +90,7 @@ fn gen_assignment(field: &Field, default_strategy: &FieldAttrs) -> TokenStream {
     } else if let Some(default) = &default_strategy.strategy {
         quote_spanned!(default.span()=> #default(&mut self.#name, other.#name);)
     } else {
-        quote_spanned!(field.span=> ::merg::merg::merge(&mut self.#name, other.#name);)
+        quote_spanned!(field.span=> ::merg::Merge::merge(&mut self.#name, other.#name);)
     }
 }
 
