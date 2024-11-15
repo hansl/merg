@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
-// SPDX-License-Identifier: Apache-2.0 or MIT
-
 #![cfg(feature = "derive")]
 
-use merge::Merge;
+use merg::Merge;
 use std::collections::HashMap;
 
 /// A macro to create collections (maps or sets) from a list of elements.
@@ -35,12 +32,12 @@ fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right:
 #[test]
 fn test_overwrite() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::overwrite)] u8);
+    struct S(#[merge(strategy = merg::overwrite)] u8);
 
     test(S(2), S(1), S(2));
 
     #[derive(Debug, Merge, PartialEq)]
-    struct T(#[merge(strategy = merge::overwrite)] HashMap<u8, &'static str>);
+    struct T(#[merge(strategy = merg::overwrite)] HashMap<u8, &'static str>);
 
     test(
         T(collection![2 => "b"]),
@@ -56,7 +53,7 @@ mod option {
     #[test]
     fn test_overwrite_none() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::option::overwrite_none)] Option<u8>);
+        struct S(#[merge(strategy = merg::option::overwrite_none)] Option<u8>);
 
         test(S(Some(1)), S(Some(1)), S(Some(2)));
         test(S(Some(2)), S(None), S(Some(2)));
@@ -66,7 +63,7 @@ mod option {
     #[test]
     fn test_overwrite_some() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::option::overwrite_some)] Option<u8>);
+        struct S(#[merge(strategy = merg::option::overwrite_some)] Option<u8>);
 
         test(S(Some(1)), S(Some(1)), S(None));
         test(S(Some(2)), S(Some(1)), S(Some(2)));
@@ -77,10 +74,10 @@ mod option {
     #[test]
     fn test_recursive() {
         #[derive(Debug, Merge, PartialEq)]
-        struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+        struct N(#[merge(strategy = merg::num::saturating_add)] u8);
 
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::option::recurse)] Option<N>);
+        struct S(#[merge(strategy = merg::option::recurse)] Option<N>);
 
         test(S(Some(N(3))), S(Some(N(1))), S(Some(N(2))));
         test(S(Some(N(1))), S(Some(N(1))), S(None));
@@ -96,7 +93,7 @@ mod bool {
     #[test]
     fn test_overwrite_false() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::bool::overwrite_false)] bool);
+        struct S(#[merge(strategy = merg::bool::overwrite_false)] bool);
 
         test(S(false), S(false), S(false));
         test(S(true), S(false), S(true));
@@ -107,7 +104,7 @@ mod bool {
     #[test]
     fn test_overwrite_true() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::bool::overwrite_true)] bool);
+        struct S(#[merge(strategy = merg::bool::overwrite_true)] bool);
 
         test(S(false), S(false), S(false));
         test(S(false), S(false), S(true));
@@ -124,7 +121,7 @@ mod num {
     #[test]
     fn test_saturating_add() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::num::saturating_add)] u8);
+        struct S(#[merge(strategy = merg::num::saturating_add)] u8);
 
         test(S(0), S(0), S(0));
         test(S(1), S(0), S(1));
@@ -136,7 +133,7 @@ mod num {
     #[test]
     fn test_overwrite_zero() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::num::overwrite_zero)] u8);
+        struct S(#[merge(strategy = merg::num::overwrite_zero)] u8);
 
         test(S(0), S(0), S(0));
         test(S(1), S(0), S(1));
@@ -146,7 +143,7 @@ mod num {
     #[test]
     fn test_ord_max() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::ord::max)] u8);
+        struct S(#[merge(strategy = merg::ord::max)] u8);
 
         test(S(2), S(1), S(2));
         test(S(2), S(2), S(1));
@@ -159,7 +156,7 @@ mod num {
     #[test]
     fn test_ord_min() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::ord::min)] u8);
+        struct S(#[merge(strategy = merg::ord::min)] u8);
 
         test(S(1), S(1), S(2));
         test(S(1), S(2), S(1));
@@ -178,7 +175,7 @@ mod vec {
     #[test]
     fn test_vec_overwrite_empty() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::vec::overwrite_empty)] Vec<u8>);
+        struct S(#[merge(strategy = merg::vec::overwrite_empty)] Vec<u8>);
 
         test(S(vec![]), S(vec![]), S(vec![]));
         test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -190,7 +187,7 @@ mod vec {
     #[test]
     fn test_vec_append() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::vec::append)] Vec<u8>);
+        struct S(#[merge(strategy = merg::vec::append)] Vec<u8>);
 
         test(S(vec![]), S(vec![]), S(vec![]));
         test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -204,7 +201,7 @@ mod vec {
     #[test]
     fn test_vec_prepend() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::vec::prepend)] Vec<u8>);
+        struct S(#[merge(strategy = merg::vec::prepend)] Vec<u8>);
 
         test(S(vec![]), S(vec![]), S(vec![]));
         test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -224,7 +221,7 @@ mod hashmap {
     #[test]
     fn test_overwrite() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashmap::overwrite)] HashMap<u8, u8>);
+        struct S(#[merge(strategy = merg::hashmap::overwrite)] HashMap<u8, u8>);
 
         test(
             S(collection! {1 => 2}),
@@ -246,7 +243,7 @@ mod hashmap {
     #[test]
     fn test_ignore() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashmap::ignore)] HashMap<u8, u8>);
+        struct S(#[merge(strategy = merg::hashmap::ignore)] HashMap<u8, u8>);
 
         test(
             S(collection! {1 => 1}),
@@ -268,10 +265,10 @@ mod hashmap {
     #[test]
     fn test_recurse() {
         #[derive(Debug, Merge, PartialEq)]
-        struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+        struct N(#[merge(strategy = merg::num::saturating_add)] u8);
 
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashmap::recurse)] HashMap<u8, N>);
+        struct S(#[merge(strategy = merg::hashmap::recurse)] HashMap<u8, N>);
 
         test(
             S(collection! {1 => N(3)}),
@@ -300,7 +297,7 @@ mod hashset {
     #[test]
     fn test_extend() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashset::extend)] HashSet<u8>);
+        struct S(#[merge(strategy = merg::hashset::extend)] HashSet<u8>);
 
         test(
             S(collection! {1, 2}),

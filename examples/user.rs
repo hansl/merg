@@ -1,15 +1,15 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: CC0-1.0
 
-use merge::Merge;
+use merg::Merge;
 
 #[derive(Merge)]
 struct User {
     #[merge(skip)]
     pub name: &'static str,
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = merg::option::overwrite_none)]
     pub location: Option<&'static str>,
-    #[merge(strategy = merge::vec::append)]
+    #[merge(strategy = merg::vec::append)]
     pub groups: Vec<&'static str>,
 }
 

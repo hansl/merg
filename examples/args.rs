@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: CC0-1.0
 
-use merge::Merge;
+use merg::Merge;
 use serde::Deserialize;
 use structopt::StructOpt;
 
@@ -9,13 +9,13 @@ use structopt::StructOpt;
 #[serde(default)]
 struct Args {
     #[structopt(short, long)]
-    #[merge(strategy = merge::bool::overwrite_false)]
+    #[merge(strategy = merg::bool::overwrite_false)]
     debug: bool,
 
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = merg::option::overwrite_none)]
     input: Option<String>,
 
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = merg::option::overwrite_none)]
     output: Option<String>,
 }
 

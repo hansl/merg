@@ -1,0 +1,22 @@
+[package]
+name = "merg_derive"
+version = "0.1.0"
+authors = ["Hans Larsen <hans@larsen.email>"]
+edition = "2021"
+description = "Derive macro for the merg::Merge trait"
+homepage = "https://github.com/hansl/merg"
+repository = "https://github.com/hansl/merg.git"
+documentation = "https://docs.rs/merg_derive"
+keywords = ["merge", "macros", "derive"]
+categories = ["rust-patterns"]
+readme = "README.md"
+license-file = "../../LICENSE"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0"
+proc-macro-error = "1.0"
+quote = "1.0"
+syn = "1.0"

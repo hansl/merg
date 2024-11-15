@@ -1,0 +1,33 @@
+[package]
+name = "merg"
+version = "0.1.0"
+authors = ["Robin Krahl <robin.krahl@ireas.org>", "Hans Larsen <hans@larsen.email>"]
+edition = "2021"
+description = "Merge multiple values into one"
+homepage = "https://github.com/hansl/merg"
+repository = "https://github.com/hansl/merg.git"
+documentation = "https://docs.rs/merg"
+keywords = ["merge", "macros", "derive"]
+categories = ["rust-patterns"]
+license-file = "../../LICENSE"
+readme = "../../README.md"
+
+[dependencies]
+merg_derive = { workspace = true, optional = true }
+num-traits = { version = "0.2.12", optional = true }
+
+[dev-dependencies]
+envy = "0.4"
+toml = "0.5"
+trybuild = "1.0"
+structopt = "0.3"
+
+[dev-dependencies.serde]
+version = "1.0"
+features = ["derive"]
+
+[features]
+default = ["derive", "num", "std"]
+derive = ["merg_derive"]
+num = ["num-traits"]
+std = []

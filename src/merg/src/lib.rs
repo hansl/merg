@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
-// SPDX-FileCopyrightText: 2023 Hans Larsen <hans@larsen.online>
-// SPDX-License-Identifier: Apache-2.0 or MIT
-
 //! Provides [`Merge`][], a trait for objects that can be merged.
 //!
 //! # Usage
@@ -27,17 +23,17 @@
 //!
 //! This crate has the following features:
 //!
-//! - `derive` (default):  Enables the derive macro for the `Merge` trait using the `merge_derive`
+//! - `derive` (default):  Enables the derive macro for the `Merge` trait using the `merg_derive`
 //!   crate.
 //! - `num` (default): Enables the merge strategies in the `num` module that require the
 //!   `num_traits` crate.
 //! - `std` (default): Enables the merge strategies in the `hashmap` and `vec` modules that require
-//!    the standard library.  If this feature is not set, `merge` is a `no_std` library.
+//!    the standard library.  If this feature is not set, `merg` is a `no_std` library.
 //!
 //! # Example
 //!
 //! ```
-//! use merge::Merge;
+//! use merg::Merge;
 //!
 //! #[derive(Merge)]
 //! struct User {
@@ -46,10 +42,10 @@
 //!     pub name: &'static str,
 //!
 //!     // The strategy attribute is used to customize the merge behavior
-//!     #[merge(strategy = merge::option::overwrite_none)]
+//!     #[merge(strategy = merg::option::overwrite_none)]
 //!     pub location: Option<&'static str>,
 //!
-//!     #[merge(strategy = merge::vec::append)]
+//!     #[merge(strategy = merg::vec::append)]
 //!     pub groups: Vec<&'static str>,
 //! }
 //!
@@ -76,7 +72,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 #[cfg(feature = "derive")]
-pub use merge_derive::*;
+pub use merg_derive::*;
 
 /// A trait for objects that can be merged.
 ///
@@ -97,17 +93,17 @@ pub use merge_derive::*;
 /// Deriving `Merge` for a struct:
 ///
 /// ```
-/// use merge::Merge;
+/// use merg::Merge;
 ///
 /// #[derive(Debug, PartialEq, Merge)]
 /// struct S {
-///     #[merge(strategy = merge::option::overwrite_none)]
+///     #[merge(strategy = merg::option::overwrite_none)]
 ///     option: Option<usize>,
 ///
 ///     #[merge(skip)]
 ///     s: String,
 ///
-///     #[merge(strategy = merge::bool::overwrite_false)]
+///     #[merge(strategy = merg::bool::overwrite_false)]
 ///     flag: bool,
 /// }
 ///
@@ -131,10 +127,10 @@ pub use merge_derive::*;
 /// Setting a default merge strategy:
 ///
 /// ```
-/// use merge::Merge;
+/// use merg::Merge;
 ///
 /// #[derive(Debug, PartialEq, Merge)]
-/// #[merge(strategy = merge::option::overwrite_none)]
+/// #[merge(strategy = merg::option::overwrite_none)]
 /// struct S {
 ///     option1: Option<usize>,
 ///     option2: Option<usize>,
@@ -299,7 +295,7 @@ pub mod hashmap {
     ///
     /// In other words, this gives precedence to `right`.
     pub fn overwrite<K: Eq + Hash, V>(left: &mut HashMap<K, V>, right: HashMap<K, V>) {
-        left.extend(right.into_iter())
+        left.extend(right)
     }
 
     /// On conflict, ignore elements from `right`.
@@ -336,6 +332,6 @@ pub mod hashset {
 
     /// Extend the left hashset with the contents of the right hashset.
     pub fn extend<K: Eq + Hash>(left: &mut HashSet<K>, right: HashSet<K>) {
-        left.extend(right.into_iter())
+        left.extend(right)
     }
 }
